@@ -1,0 +1,40 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+
+        {
+            "type": "java",
+            "name": "ClickCounter",
+            "request": "launch",
+            "mainClass": "ClickCounter",
+            "projectName": "JavaFX-Exercise-And-Practice_9465f507",
+            "vmArgs": "--module-path \"C:/Users/konik/java/openjfx-22_windows-x64_bin-sdk/javafx-sdk-22/lib\" --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "HelloFX",
+            "request": "launch",
+            "mainClass": "HelloFX",
+            "projectName": "JavaFX-Exercise-And-Practice_9465f507",
+            "vmArgs": "--module-path \"C:/Users/konik/java/openjfx-22_windows-x64_bin-sdk/javafx-sdk-22/lib\" --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
+            "name": "JobTest",
+            "request": "launch",
+            "mainClass": "JobTest",
+            "projectName": "JavaFX-Exercise-And-Practice_9465f507",
+            "vmArgs": "--module-path \"C:/Users/konik/java/openjfx-22_windows-x64_bin-sdk/javafx-sdk-22/lib\" --add-modules javafx.controls,javafx.fxml"
+        }
+    ]
+}
