@@ -5,3 +5,9 @@
 ### I believe it will be fun to learning.
 
 ### Let start....
+
+### Run the JavaFX file
+
+- javac
+
+- java
