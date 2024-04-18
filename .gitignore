@@ -1,0 +1,9 @@
+-----------BGN
+# content
+*.class
+*.log
+.vscode
+.vscode-test
+.DS*
+__MAC*/
+----------- END
