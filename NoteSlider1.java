@@ -23,7 +23,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class NoteSlider extends Application {
+public class NoteSlider1 extends Application {
 
     // GUI models
     private Slider noteDurationSlider;
@@ -33,6 +33,7 @@ public class NoteSlider extends Application {
     private Label noteDecayLabel;
     private Slider noteGapSlider;
     private Label noteGapLabel;
+    private Button updateButton;
 
     // data model
 
@@ -42,6 +43,8 @@ public class NoteSlider extends Application {
     public void start (Stage stage){
 
         this.job = new Job();
+
+        // duration
 
         this.noteDurationLabel = new Label(
             String.format(
@@ -75,11 +78,12 @@ public class NoteSlider extends Application {
                             duration
                         )
                     );
+                    updateCanvas();
                 }
             }
         );
 
-        //decap
+        // decay
 
         this.noteDecayLabel = new Label(
             String.format(
@@ -112,24 +116,12 @@ public class NoteSlider extends Application {
                             decay
                         )
                     );
+                    updateCanvas();
                 }
             }
         );
 
-        // int height = 30;
-        // this.noteTimingCanvas = new Canvas(450, height);
-        // GraphicsContext gc = this.noteTimingCanvas.getGraphicsContext2D();
-        // gc.setFill(Color.LIGHTGRAY);
-        // gc.fillRect(
-        //     0,
-        //     0,
-        //     this.noteTimingCanvas.getWidth(),
-        //     this.noteTimingCanvas.getHeight()
-        // );
-
-        // gap canvas
-
-        /*
+        // gap
 
         this.noteGapLabel = new Label(
             String.format(
@@ -140,7 +132,7 @@ public class NoteSlider extends Application {
 
         this.noteGapSlider = new Slider(
             100,
-            4500,
+            500,
             this.job.getNoteGap()
         );
 
@@ -162,25 +154,23 @@ public class NoteSlider extends Application {
                             gap
                         )
                     );
+                    updateCanvas();
                 }
             }
         );
 
 
 
-         */
+        // update button.
 
-        gc.setFill(Color.BLUE);
-        int durationWidth = this.job.getNoteDuration() / 6;
-        gc.fillRect(0, 0, durationWidth, height);
-        gc.strokeRect(0, 0, durationWidth, height);
+        this.updateButton = new Button("Update Job and Print");
+        this.updateButton.setOnAction((ActionEvent event) -> {
+            System.out.println(job);
+        });
 
-        gc.setFill(Color.LIGHTGRAY);
-        int decayWidth = this.job.getNoteDuration() / 8;
-        gc.fillRect(durationWidth, 1, decayWidth, height);
-        gc.strokeRect(durationWidth, 1, decayWidth, height);
-
-
+        int height = 30;
+        this.noteTimingCanvas = new Canvas(450, height);
+        updateCanvas();
 
         VBox noteDurationBox = new VBox(
             this.noteDurationLabel,
@@ -192,18 +182,52 @@ public class NoteSlider extends Application {
             this.noteDecaySlider
         );
 
-        StackPane noteTimesPane = new StackPane(
-            noteDurationBox,
-            noteDecayBox,
-            this.noteTimingCanvas
+        VBox noteGapBox = new VBox(
+            this.noteGapLabel,
+            this.noteGapSlider
         );
 
+        VBox controlsBox = new VBox(
+            noteDurationBox,
+            noteDecayBox,
+            noteGapBox,
+            this.updateButton
+        );
+
+        StackPane noteTimesPane = new StackPane(
+            this.noteTimingCanvas,
+            controlsBox
+        );
 
         stage.setTitle("Note Sliders");
         Scene scene = new Scene(noteTimesPane, 500, 400);
         stage.setScene(scene);
         stage.show();
 
+    }
+
+    private void updateCanvas() {
+        GraphicsContext gc = this.noteTimingCanvas.getGraphicsContext2D();
+        gc.clearRect(0, 0, this.noteTimingCanvas.getWidth(), this.noteTimingCanvas.getHeight());
+        gc.setFill(Color.LIGHTBLUE);
+        gc.fillRect(0, 0, this.noteTimingCanvas.getWidth(), this.noteTimingCanvas.getHeight());
+
+
+
+        gc.setFill(Color.LIGHTBLUE);
+        int durationWidth = this.job.getNoteDuration() / 6;
+        gc.fillRect(0, 0, durationWidth, this.noteTimingCanvas.getHeight());
+        gc.strokeRect(0, 0, durationWidth, this.noteTimingCanvas.getHeight());
+
+        gc.setFill(Color.LIGHTBLUE);
+        int decayWidth = this.job.getNoteDecay() / 8;
+        gc.fillRect(durationWidth, 1, decayWidth, this.noteTimingCanvas.getHeight());
+        gc.strokeRect(durationWidth, 1, decayWidth, this.noteTimingCanvas.getHeight());
+
+        gc.setFill(Color.LIGHTBLUE);
+        int gapWidth = this.job.getNoteGap() / 10;
+        gc.fillRect(decayWidth, 2, gapWidth, this.noteTimingCanvas.getHeight());
+        gc.strokeRect(decayWidth, 2, gapWidth, this.noteTimingCanvas.getHeight());
     }
 
     public static void main(String[] args) {
